@@ -9,10 +9,6 @@ The system supports:
 * **Sign Language → Text → Speech**
 * **Speech → Text → Sign Language**
 
-# 🤟 SignBridge
-
-### Two-Way Sign Language Translator
-
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green?logo=opencv)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-Hand%20Tracking-orange)
@@ -20,7 +16,6 @@ The system supports:
 ![CustomTkinter](https://img.shields.io/badge/GUI-CustomTkinter-purple)
 ![Status](https://img.shields.io/badge/Status-Active-success)
 
-SignBridge is an AI-powered accessibility application that leverages Computer Vision, Machine Learning, and Speech Technologies to provide real-time translation between sign language and spoken language.
 
 ## 📌 Overview
 
