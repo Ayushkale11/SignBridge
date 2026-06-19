@@ -494,7 +494,7 @@ def build_dataset():
     detector.release()
 
     print(f"\n{'=' * 55}")
-    print(f"  ✓ Dataset built successfully!")
+    print(f"  * Dataset built successfully!")
     print(f"  Total samples: {total_samples}")
     print(f"  Saved to: {DATASET_CSV}")
     print(f"{'=' * 55}\n")

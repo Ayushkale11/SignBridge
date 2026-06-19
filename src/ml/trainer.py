@@ -123,7 +123,7 @@ def train_model():
 
     # Calculate accuracy
     accuracy = accuracy_score(y_test, y_pred)
-    print(f"\n    ★ Overall Accuracy: {accuracy * 100:.2f}%")
+    print(f"\n    * Overall Accuracy: {accuracy * 100:.2f}%")
 
     # Detailed report per class
     print("\n    Per-class Performance:")
