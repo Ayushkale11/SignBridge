@@ -199,9 +199,9 @@ This project is for educational purposes as part of a Computer Engineering curri
 
 ## 👤 Author
 
-**Your Name** — 1st Year, Computer Engineering
+**Ayush Kale**
 
----
+
 
 *Built with ❤️ using Python, OpenCV, MediaPipe, and Scikit-Learn*
 =======
