@@ -112,4 +112,5 @@ SignBridge/
 
 ---
 
-**Developed for a 1st-Year Computer Engineering Project.** 🎓
+BY 
+AYUSH KALE
