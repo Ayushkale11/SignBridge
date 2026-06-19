@@ -1,4 +1,4 @@
-# 🤟 SignBridge
+#  SignBridge
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green?logo=opencv)
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-Hand%20Tracking-orange)
@@ -18,7 +18,7 @@ The system supports:
 
 
 
-## 📌 Overview
+##  Overview
 
 Communication barriers often exist between hearing-impaired individuals and people who do not understand sign language.
 
@@ -46,7 +46,7 @@ The application:
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 ### Computer Vision
 
@@ -77,7 +77,7 @@ The application:
 
 ---
 
-## 🏗️ Technology Stack
+## Technology Stack
 
 | Category           | Technology        |
 | ------------------ | ----------------- |
@@ -93,7 +93,7 @@ The application:
 
 ---
 
-## ⚙️ Installation
+##  Installation
 
 ### Clone Repository
 
@@ -128,7 +128,7 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Quick Start
+##  Quick Start
 
 ### Step 1: Generate Sign Assets
 
@@ -173,7 +173,7 @@ python app.py
 
 ---
 
-## 🔄 System Workflow
+##  System Workflow
 
 ### Sign → Speech Pipeline
 
@@ -216,7 +216,7 @@ Sign Image Display
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 SignBridge/
@@ -239,7 +239,7 @@ SignBridge/
 
 ---
 
-## 🧠 Machine Learning Pipeline
+##  Machine Learning Pipeline
 
 1. Dataset Collection
 2. Hand Landmark Extraction
@@ -260,7 +260,7 @@ Future models:
 
 ---
 
-## 🧪 Future Improvements
+## Future Improvements
 
 * Dynamic gesture recognition
 * Word-level sign recognition
@@ -272,7 +272,7 @@ Future models:
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions, bug reports, and feature requests are welcome.
 
@@ -283,13 +283,13 @@ Contributions, bug reports, and feature requests are welcome.
 
 ---
 
-## 📄 License
+## License
 
 This project is intended for educational and research purposes.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 ### Ayush Kale
 
