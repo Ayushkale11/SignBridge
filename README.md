@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-# 🤟 SignBridge — Two-Way Sign Language Translator
+
+🤟 SignBridge — Two-Way Sign Language Translator
 
 A real-time bidirectional sign language translation system built with Python, OpenCV, MediaPipe, and Machine Learning.
 
