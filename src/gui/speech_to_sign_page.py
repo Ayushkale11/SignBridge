@@ -354,10 +354,9 @@ class SpeechToSignPage(ctk.CTkFrame):
         label, path = self._current_signs[self._current_index]
 
         try:
-            # Load and resize image
+            # Load and resize image using CTkImage for compatibility
             img = Image.open(path)
-            img = img.resize((350, 350), Image.LANCZOS)
-            imgtk = ImageTk.PhotoImage(image=img)
+            imgtk = ctk.CTkImage(light_image=img, dark_image=img, size=(350, 350))
 
             self._sign_image_label.configure(image=imgtk, text="")
             self._sign_image_label.imgtk = imgtk  # Keep reference

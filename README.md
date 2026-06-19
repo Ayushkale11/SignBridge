@@ -1,209 +1,115 @@
+# 🤟 SignBridge
 
-🤟 SignBridge — Two-Way Sign Language Translator
+**Two-Way Sign Language Translator**
 
-A real-time bidirectional sign language translation system built with Python, OpenCV, MediaPipe, and Machine Learning.
+SignBridge is a beginner-friendly Machine Learning project that bridges the communication gap between sign language users and non-signers. It provides two-way translation in real-time.
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)
-![OpenCV](https://img.shields.io/badge/OpenCV-4.8%2B-green?style=flat-square&logo=opencv)
-![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10%2B-orange?style=flat-square)
-![scikit--learn](https://img.shields.io/badge/scikit--learn-1.3%2B-yellow?style=flat-square&logo=scikit-learn)
-
----
-
-## 📌 About
-
-**SignBridge** bridges the communication gap between sign language users and non-signers through two modes:
-
-| Mode | Input → Output |
-|------|----------------|
-| **Sign to Speech** | 📷 Webcam → ✋ Hand Detection → 🤖 ML Prediction → 🔊 Speech |
-| **Speech to Sign** | 🎤 Microphone → 📝 Text → 🖼️ Sign Image Display |
+1. **Sign to Speech:** Uses your webcam and MediaPipe to detect hand gestures, translates them to text using a Random Forest model, and speaks the sentence out loud using Text-to-Speech (TTS).
+2. **Speech to Sign:** Listens to your voice using Google's Speech Recognition, converts it to text, and displays the corresponding American Sign Language (ASL) images.
 
 ---
 
 ## ✨ Features
 
-- 🖐️ Real-time hand tracking with 21 landmark points
-- 🧠 Random Forest classifier (95%+ accuracy)
-- 🔊 Offline text-to-speech (pyttsx3)
-- 🎤 Speech recognition (Google API)
-- 🖥️ Modern dark-themed GUI (CustomTkinter)
-- 📊 Prediction smoothing with rolling window
-- 🔤 Supports A-Z, 0-9, and 7 common words
-- 🌐 Works offline (except speech-to-text)
+- **Real-Time Hand Tracking:** Powered by Google's MediaPipe Tasks API.
+- **Rotation-Invariant Features:** The model automatically calculates angles and distances to recognize hands regardless of how you tilt your camera.
+- **Auto Dataset Builder:** No need to painstakingly record yourself for hours! The project automatically downloads 87,000 professional ASL images from Kaggle and builds a robust dataset.
+- **Beautiful UI:** Built with `customtkinter` for a modern, sleek, dark-mode desktop experience.
+- **Background Processing:** Multi-threaded architecture guarantees a smooth, lag-free UI experience.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Installation
 
-| Component | Technology |
-|-----------|------------|
-| Language | Python 3.8+ |
-| Computer Vision | OpenCV, MediaPipe |
-| Machine Learning | Scikit-Learn (Random Forest) |
-| Speech Output | pyttsx3 |
-| Speech Input | SpeechRecognition |
-| GUI | CustomTkinter |
-| Data | NumPy, Pandas |
-
----
-
-## 📁 Project Structure
-
-```
-SignBridge/
-├── dataset/                    # Collected landmark data
-│   └── landmark_data.csv
-├── models/                     # Trained ML models
-│   └── sign_model.pkl
-├── assets/                     # Sign images
-│   ├── signs/                  # PNG images for each sign
-│   └── gifs/                   # Animated GIFs
-├── src/
-│   ├── vision/                 # Hand detection & features
-│   │   ├── hand_detector.py
-│   │   └── feature_extractor.py
-│   ├── ml/                     # ML pipeline
-│   │   ├── data_collector.py
-│   │   ├── trainer.py
-│   │   └── predictor.py
-│   ├── speech/                 # Speech modules
-│   │   ├── text_to_speech.py
-│   │   └── speech_to_text.py
-│   ├── gui/                    # GUI pages
-│   │   ├── main_window.py
-│   │   ├── sign_to_speech_page.py
-│   │   └── speech_to_sign_page.py
-│   └── utils/                  # Configuration
-│       ├── config.py
-│       └── asset_generator.py
-├── app.py                      # Main entry point
-├── requirements.txt
-└── README.md
-```
-
----
-
-## 🚀 Quick Start
-
-### 1. Clone the Repository
-
+**1. Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/SignBridge.git
+git clone https://github.com/yourusername/SignBridge.git
 cd SignBridge
 ```
 
-### 2. Create Virtual Environment (Recommended)
-
-```bash
-python -m venv venv
-venv\Scripts\activate        # Windows
-# source venv/bin/activate   # macOS/Linux
-```
-
-### 3. Install Dependencies
-
+**2. Install Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
+*(Dependencies: `opencv-python`, `mediapipe`, `scikit-learn`, `numpy`, `pandas`, `customtkinter`, `pyttsx3`, `SpeechRecognition`, `Pillow`, `kagglehub`)*
 
-> **Note:** If PyAudio fails to install on Windows:
-> ```bash
-> pip install pipwin
-> pipwin install pyaudio
-> ```
+---
 
-### 4. Generate Sign Images
+## 🚀 Quick Start Guide
 
+### Step 1: Generate Sign Images
+We need images to display when someone speaks. Run the asset generator to create placeholder sign images for A-Z, 0-9, and common words:
 ```bash
 python -m src.utils.asset_generator
 ```
 
-### 5. Collect Training Data
-
+### Step 2: Build the Dataset
+The app needs to learn what signs look like. This script will automatically download the Kaggle ASL Alphabet dataset, process it through MediaPipe to extract robust features, and save it to a CSV:
 ```bash
-python -m src.ml.data_collector
+python -m src.ml.dataset_builder
 ```
+*(Note: This might take 3-5 minutes depending on your internet speed and CPU).*
 
-Follow the on-screen instructions:
-- Press **S** to start recording each sign
-- Hold the sign steady — it captures 200 samples automatically
-- Press **N** to skip a sign
-- Press **Q** to quit
-
-### 6. Train the Model
-
+### Step 3: Train the Model
+Once the dataset is built, train the Machine Learning model (Random Forest). This takes less than 10 seconds:
 ```bash
 python -m src.ml.trainer
 ```
 
-### 7. Launch the App
-
+### Step 4: Launch the App
+You are ready to go! Launch the main graphical interface:
 ```bash
 python app.py
 ```
 
 ---
 
-## 📖 How It Works
+## 📂 Project Structure
 
-### Sign to Speech Mode
-
-1. **Hand Detection**: MediaPipe processes each webcam frame and identifies 21 hand landmark points (fingertips, knuckles, wrist).
-
-2. **Feature Extraction**: Raw landmarks are normalized — centered on the wrist and scaled to unit size — so gestures look the same regardless of hand position.
-
-3. **Classification**: A Random Forest model (100 decision trees) votes on the most likely sign from 43 classes.
-
-4. **Smoothing**: A rolling window of 15 frames prevents flickering by picking the most consistent prediction.
-
-5. **Speech**: pyttsx3 converts the recognized text to spoken audio in a background thread.
-
-### Speech to Sign Mode
-
-1. **Speech Recognition**: The SpeechRecognition library captures audio from the microphone and sends it to Google's API for transcription.
-
-2. **Word Matching**: Each word is checked against our sign image library. Known words show their sign directly; unknown words are spelled letter by letter.
-
-3. **Display**: Sign images are shown in a navigable gallery with Previous/Next controls.
-
----
-
-## 🎯 Supported Signs
-
-| Category | Signs |
-|----------|-------|
-| Alphabets | A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z |
-| Numbers | 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 |
-| Words | HELLO, THANK YOU, YES, NO, HELP, WATER, FOOD |
-
----
-
-## 🧪 Testing
-
-```bash
-# Verify all imports
-python -c "import cv2, mediapipe, sklearn, pyttsx3, speech_recognition, customtkinter; print('All imports OK')"
-
-# Run the full app
-python app.py
+```text
+SignBridge/
+│
+├── app.py                            # Main application entry point
+├── requirements.txt                  # Python dependencies
+├── README.md                         # Project documentation
+│
+├── dataset/                          # Where the CSV data is saved
+├── models/                           # Where the trained .pkl model and .task are saved
+├── assets/                           # Placeholder for sign images
+│
+└── src/
+    ├── gui/                          # CustomTkinter interface
+    │   ├── main_window.py            
+    │   ├── sign_to_speech_page.py
+    │   └── speech_to_sign_page.py
+    │
+    ├── ml/                           # Machine Learning logic
+    │   ├── dataset_builder.py        # Kaggle auto-downloader & processor
+    │   ├── data_collector.py         # Record your own custom gestures
+    │   ├── trainer.py                # Train the Random Forest
+    │   └── predictor.py              # Real-time smoothing & prediction
+    │
+    ├── vision/                       # Computer Vision
+    │   ├── hand_detector.py          # MediaPipe Tasks wrapper
+    │   └── feature_extractor.py      # Rotation/Scale normalizer
+    │
+    ├── speech/                       # Audio modules
+    │   ├── text_to_speech.py         # Pyttsx3 wrapper
+    │   └── speech_to_text.py         # SpeechRecognition listener
+    │
+    └── utils/
+        ├── config.py                 # Global constants & settings
+        └── asset_generator.py        # Generates basic sign images
 ```
 
 ---
 
-## 📄 License
+## 💡 Troubleshooting
 
-This project is for educational purposes as part of a Computer Engineering curriculum.
+- **The camera is lagging:** Ensure you are running the app in a bright room. Low light drops webcam framerates. The resolution is capped at 640x480 by default to guarantee high FPS.
+- **Model isn't recognizing my hand:** The Kaggle dataset is excellent, but it might not perfectly match your room's lighting or camera setup. You can easily train the AI on your *own* hand by running `python -m src.ml.data_collector`.
+- **Speech API Errors:** The Speech-to-Sign module uses Google's free API, which requires an active internet connection.
 
 ---
 
-## 👤 Author
-
-**Ayush Kale**
-
-
-
-*Built with ❤️ using Python, OpenCV, MediaPipe, and Scikit-Learn*
-=======
-# SignBridge
->>>>>>> 02aeae9fb34194b55a75f0f0a04bb690c8dec69e
+**Developed for a 1st-Year Computer Engineering Project.** 🎓

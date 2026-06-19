@@ -292,6 +292,10 @@ class SignToSpeechPage(ctk.CTkFrame):
                 self._status_label.configure(text="Camera Error", text_color="#FF4444")
                 return
 
+            # Force lower resolution to fix lag and boost FPS
+            self._cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+            self._cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
             self._detector = HandDetector()
             self._predictor = Predictor()
             self._tts = TextToSpeech()
@@ -406,14 +410,13 @@ class SignToSpeechPage(ctk.CTkFrame):
             frame = self._current_frame
 
         if frame is not None:
-            # Resize frame to fit display
+            # Convert BGR to RGB for PIL
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             img = Image.fromarray(frame_rgb)
-            img = img.resize(
-                (WEBCAM_DISPLAY_WIDTH, WEBCAM_DISPLAY_HEIGHT),
-                Image.LANCZOS,
-            )
-            imgtk = ImageTk.PhotoImage(image=img)
+            
+            # Use CTkImage for native scaling support in CustomTkinter
+            imgtk = ctk.CTkImage(light_image=img, dark_image=img, size=(WEBCAM_DISPLAY_WIDTH, WEBCAM_DISPLAY_HEIGHT))
+            
             self._video_label.configure(image=imgtk, text="")
             self._video_label.imgtk = imgtk  # Keep reference!
 

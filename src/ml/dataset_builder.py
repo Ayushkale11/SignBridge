@@ -50,8 +50,8 @@ from src.utils.config import (
 
 # ── How many samples to extract per class ──
 # The Kaggle ASL dataset has ~3000 images per letter.
-# We cap at this many to keep training balanced & fast.
-SAMPLES_PER_CLASS = 300
+# We cap at 1000 to get a huge dataset while keeping training fast.
+SAMPLES_PER_CLASS = 1000
 
 
 def download_kaggle_dataset():

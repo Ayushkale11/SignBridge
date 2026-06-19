@@ -53,23 +53,41 @@ class FeatureExtractor:
         wrist = coords[0]
 
         # Step 2: Subtract wrist from all landmarks
-        # This makes the wrist the origin (0, 0, 0)
-        # Now all other points are relative to the wrist
         centered = coords - wrist
 
-        # Step 3: Find the maximum distance from the wrist
-        # np.linalg.norm calculates the distance of each point from origin
-        # We take the maximum distance to use as our scale factor
-        max_distance = np.max(np.linalg.norm(centered, axis=1))
+        # Step 3: Align hand to point UP (Rotation Invariance)
+        # Find vector from wrist (0) to middle finger MCP (9)
+        v = centered[9]
+        
+        # Calculate current angle in the X-Y plane
+        angle = np.arctan2(v[1], v[0])
+        
+        # Target angle is straight UP (which is -pi/2 in image coordinates)
+        target_angle = -np.pi / 2.0
+        
+        # Rotation difference
+        theta = target_angle - angle
+        
+        # Rotate all points around the Z-axis
+        cos_t = np.cos(theta)
+        sin_t = np.sin(theta)
+        rot_matrix = np.array([
+            [cos_t, -sin_t, 0],
+            [sin_t,  cos_t, 0],
+            [0,      0,     1]
+        ])
+        
+        rotated = np.dot(centered, rot_matrix.T)
+
+        # Step 4: Scale Invariance
+        max_distance = np.max(np.linalg.norm(rotated, axis=1))
 
         # Avoid division by zero (happens if all points overlap)
         if max_distance == 0:
             return landmarks  # Return raw if can't normalize
 
-        # Step 4: Divide all coordinates by max_distance
-        # Now the farthest point is at distance 1.0
-        # All other points are between 0.0 and 1.0
-        normalized = centered / max_distance
+        # Step 5: Divide all coordinates by max_distance
+        normalized = rotated / max_distance
 
         # Flatten back to a list of 63 numbers
         return normalized.flatten().tolist()

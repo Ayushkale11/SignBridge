@@ -62,10 +62,10 @@ ALL_LABELS = ALPHABET_LABELS + NUMBER_LABELS + WORD_LABELS
 # MEDIAPIPE SETTINGS
 # ──────────────────────────────────────────
 # How confident MediaPipe must be to say "I found a hand"
-DETECTION_CONFIDENCE = 0.7
+DETECTION_CONFIDENCE = 0.5
 
 # How confident MediaPipe must be to keep tracking a hand
-TRACKING_CONFIDENCE = 0.7
+TRACKING_CONFIDENCE = 0.5
 
 # Maximum number of hands to detect (1 = simpler for beginners)
 MAX_HANDS = 1

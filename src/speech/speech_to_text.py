@@ -65,10 +65,10 @@ class SpeechToText:
             # Get the default microphone
             mic = sr.Microphone()
 
-            # Adjust for ambient noise (takes ~1 second)
+            # Adjust for ambient noise (takes ~2 seconds)
             print("  Adjusting for ambient noise...")
             with mic as source:
-                self.recognizer.adjust_for_ambient_noise(source, duration=1)
+                self.recognizer.adjust_for_ambient_noise(source, duration=2)
             print("  Ready! Start speaking...")
 
             # Define what happens when speech is detected
@@ -76,7 +76,7 @@ class SpeechToText:
                 """Called automatically when speech is detected."""
                 try:
                     # Send audio to Google's speech API
-                    text = recognizer.recognize_google(audio)
+                    text = recognizer.recognize_google(audio, language="en-US")
                     # Call the callback with lowercase text
                     callback(text.lower())
                 except sr.UnknownValueError:
@@ -91,7 +91,7 @@ class SpeechToText:
             # Start background listening
             # This runs in a separate thread automatically
             self._stop_listening = self.recognizer.listen_in_background(
-                mic, on_audio
+                mic, on_audio, phrase_time_limit=5
             )
             self._is_listening = True
 
